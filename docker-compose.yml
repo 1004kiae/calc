@@ -1,0 +1,21 @@
+version: "3"
+services:
+  calc:
+    container_name: calc
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile-test
+    ports:
+      - "8000:8000"
+    stdin_open: true
+    tty: true
+  calc-debug:
+    container_name: calc-debug
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile-debugging
+    ports:
+      - "8001:8000"
+      - "2345:2345"
+    stdin_open: true
+    tty: true
