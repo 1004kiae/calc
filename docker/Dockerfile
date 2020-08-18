@@ -20,6 +20,6 @@ WORKDIR /bin
 COPY --from=builder /build/calc /bin/
 COPY --from=builder /go/bin/dlv /bin/
 
-EXPOSE 8002
+EXPOSE 8001
 EXPOSE 2345
-ENTRYPOINT ["/bin/dlv", "--listen=:2345", "--headless=true", "--api-version=2", "--accept-multiclient", "exec", "/bin/calc", "--continue"]
+ENTRYPOINT ["/bin/dlv", "--listen=:2345", "--headless=true", "--api-version=2", "exec", "/bin/calc"]
