@@ -44,15 +44,15 @@ services:
 
 
 
-    calc-debug:
-      container_name: calc-debug
-      build:
-        context: .
-        dockerfile: ./docker/Dockerfile
-      ports:
-        - "8001:8001"
-        - "2345:2345"
-      stdin_open: true
-      tty: true
-      security_opt:
-        - seccomp:unconfined
+  calc-debug:
+    container_name: calc-debug
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    ports:
+      - "8001:8001"
+      - "2345:2345"
+    stdin_open: true
+    tty: true
+    security_opt:
+      - seccomp:unconfined
