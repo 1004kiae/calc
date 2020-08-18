@@ -54,7 +54,3 @@ services:
         - "2345:2345"
       stdin_open: true
       tty: true
-      volumes:
-        - .:/game/public_html/calc
-      working_dir: /game/public_html/calc
-      command: go run ./app/main.go
