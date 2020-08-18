@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-const port = "8000"
+const port = "8002"
 
 func main() {
 	http.HandleFunc("/fib", fibHandler)

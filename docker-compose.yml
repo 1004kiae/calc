@@ -1,21 +1,63 @@
 version: "3"
 services:
-  calc:
-    container_name: calc
-    build:
-      context: .
-      dockerfile: ./docker/Dockerfile-test
-    ports:
-      - "8000:8000"
-    stdin_open: true
-    tty: true
-  calc-debug:
-    container_name: calc-debug
-    build:
-      context: .
-      dockerfile: ./docker/Dockerfile-debugging
-    ports:
-      - "8001:8000"
-      - "2345:2345"
-    stdin_open: true
-    tty: true
+    # Dockerfile 만 동작시켜 이미지 생성
+    # -> 이렇게 할 경우 이미지가 이미 존재하는 경우 새로 빌드하지 않기 때문에 도커파일안에서 고빌드를 하는 경우
+    #    소스가 변경되어 최신소스를 반영하고자 할 때 pass 되기 때문에 항상 이미지를 삭제하고 매번 빌드해야 하는 문제가 있음
+    calc-oldest:
+      container_name: calc-oldest
+      build:
+        context: .
+        dockerfile: ./docker/Dockerfile-oldest
+      ports:
+        - "8000:8000"
+      stdin_open: true
+      tty: true
+
+
+    # Dockerfile 없이 이미지 생성
+    calc:
+      container_name: calc
+      image: golang:latest
+      ports:
+        - "8002:8002"
+      stdin_open: true
+      tty: true
+      volumes:
+        - .:/game/public_html/calc
+      working_dir: /game/public_html/calc
+      command: go run ./app/main.go
+
+    calc-debug:
+      container_name: calc-debug
+      build:
+        context: .
+        dockerfile: ./docker/Dockerfile
+      ports:
+        - "8003:8002"
+        - "2345:2345"
+      stdin_open: true
+      tty: true
+      volumes:
+        - .:/game/public_html/calc
+      working_dir: /game/public_html/calc
+      command: go run ./app/main.go
+
+#  calc:
+#    container_name: calc
+#    build:
+#      context: .
+#      dockerfile: ./docker/Dockerfile-test
+#    ports:
+#      - "8000:8000"
+#    stdin_open: true
+#    tty: true
+#  calc-debug:
+#    container_name: calc-debug
+#    build:
+#      context: .
+#      dockerfile: ./docker/Dockerfile-debugging
+#    ports:
+#      - "8001:8000"
+#      - "2345:2345"
+#    stdin_open: true
+#    tty: true
