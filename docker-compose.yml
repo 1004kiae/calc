@@ -54,3 +54,5 @@ services:
         - "2345:2345"
       stdin_open: true
       tty: true
+      security_opt:
+        - seccomp:unconfined
